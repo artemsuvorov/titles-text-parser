@@ -1,0 +1,29 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+
+<h1>Titles Text Parser</h1>
+
+<div th:if="${message}">
+  <h2 th:text="${message}"></h2>
+</div>
+
+<div>
+  <form method="POST" enctype="multipart/form-data" action="/">
+    <hr/>
+    <label>File to upload:</label>
+    <input type="file" name="file" /> <br/>
+    <input type="submit" value="Upload" /> <br/>
+    <hr/>
+  </form>
+</div>
+
+<div>
+  <ul>
+    <li th:each="file : ${files}">
+      <a th:href="${file}" th:text="${file}"></a>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

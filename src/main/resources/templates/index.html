@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Titles Text Parser</title>
+</head>
+<body>
+    <h2>Titles Text Parser</h2>
+
+    <form method="POST" enctype="multipart/form-data" action="/upload">
+        File to upload: <input type="file" name="file"><br />
+        <input type="submit" value="Upload"> Press here to upload the file!
+    </form>
+
+    <div th:if="${status}">
+        <h2>Status message</h2>
+        <p th:text="${status}"></p>
+    </div>
+
+    <div th:if="${filenames}">
+        <h2>Uploaded files</h2>
+        <th:block th:each="filename : ${filenames}">
+            <p>
+                <a th:text="${filename}" th:href="@{'/files/' + ${filename}}"></a>
+            </p>
+        </th:block>
+    </div>
+
+</body>
+</html>

@@ -1,16 +1,21 @@
 package application;
 
+import application.storage.Storage;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.util.unit.DataSize;
 
-import application.storage.StorageProperties;
-import application.storage.StorageService;
+import javax.servlet.MultipartConfigElement;
 
-@SpringBootApplication
-@EnableConfigurationProperties(StorageProperties.class)
+@Configuration
+@ComponentScan
+@EnableAutoConfiguration
 public class Application {
 
 	public static void main(String[] args) {
@@ -18,11 +23,19 @@ public class Application {
 	}
 
 	@Bean
-	CommandLineRunner init(StorageService storageService) {
+	CommandLineRunner init(Storage storage) {
 		return (args) -> {
-			storageService.deleteAll();
-			storageService.init();
+			storage.clear();
+			storage.init();
 		};
+	}
+
+	@Bean
+	MultipartConfigElement multipartConfigElement() {
+		MultipartConfigFactory factory = new MultipartConfigFactory();
+		factory.setMaxFileSize(DataSize.ofKilobytes(128));
+		factory.setMaxRequestSize(DataSize.ofKilobytes(128));
+		return factory.createMultipartConfig();
 	}
 
 }

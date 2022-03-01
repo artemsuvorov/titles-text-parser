@@ -3,13 +3,13 @@ package application.controllers;
 import application.storage.Storage;
 import application.storage.StorageException;
 
+import application.views.PlainTextView;
+import application.views.TitleTextView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.IOException;
 
 @Controller
 public class UploadController {
@@ -34,7 +34,8 @@ public class UploadController {
         try {
             var file = storage.load(filename);
             try (var stream = file.getInputStream()) {
-                return new String(stream.readAllBytes()).replaceAll("(\r\n|\n)", "<br/>");
+                var text = new String(stream.readAllBytes());
+                return new TitleTextView(text).buildResponseBody();
             }
         } catch (Exception ex) {
             return "Failed to upload '" + filename + "' => Error message: " + ex.getMessage();
@@ -44,7 +45,7 @@ public class UploadController {
     private String storeFileWithStatusMessage(MultipartFile file) {
         var filename = file.getOriginalFilename();
         if (file.isEmpty())
-            return "You cannot upload an empty file '" + filename + "'";
+            return "You cannot upload an empty file.";
         try {
             storage.store(file, uploadFilename);
             return "You've successfully uploaded '" + filename + "' as a '" + uploadFilename + "'";

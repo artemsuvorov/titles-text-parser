@@ -30,3 +30,4 @@ target/
 
 # Private
 upload/
+src/test/resources/

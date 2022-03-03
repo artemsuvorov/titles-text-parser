@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 public interface Storage {
 
-    void init();
+    void init() throws StorageException;
 
     void store(MultipartFile file, String filename) throws StorageException;
 

@@ -1,6 +1,8 @@
 package application.storage;
 
-public class StorageException extends RuntimeException {
+import java.io.IOException;
+
+public class StorageException extends IOException {
 
     public StorageException(String message) {
         super(message);

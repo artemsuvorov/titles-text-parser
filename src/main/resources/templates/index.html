@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Titles Text Parser</title>
 </head>
+
 <body>
+
     <h2>Titles Text Parser</h2>
 
     <form method="POST" enctype="multipart/form-data" action="/upload">
         File to upload: <input type="file" name="file"><br />
-        <input type="submit" value="Upload"> Press here to upload the file!
+        Press here to upload the file: <input type="submit" value="Upload">
     </form>
 
     <div th:if="${status}">
@@ -31,4 +34,5 @@
     </div>
 
 </body>
+
 </html>

@@ -21,7 +21,7 @@ public class FileSystemStorage implements Storage {
     private final Path directoryLocation = Paths.get(uploadDirectoryName);
 
     @Override
-    public void init() {
+    public void init() throws StorageException {
         try {
             Files.createDirectories(directoryLocation);
         }

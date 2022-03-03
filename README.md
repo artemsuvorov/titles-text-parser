@@ -2,7 +2,8 @@
 
 Titles Text Parser is a RESTful API service developed using Spring Boot. 
 The Application java class runs a server which you can send HTTP request to.
-Mainly, user can upload a file (in CR, LF or CRLF format) and get its parsed representation 
+
+In total user can upload a file (in CR, LF or CRLF format) and get its parsed representation 
 in any of several formats: plain, parsed or json (more on that in the Usage section).
 
 ## Quick start
@@ -43,18 +44,19 @@ You can find examples of those formats in the Example section.
 ## Example
 
 As it was mentioned before, there are several formats of the resulting text: plain, parsed, 
-and json. You can choose the format of the parsed text by specifying it in your GET request.
+and json. 
+You can choose the format of the parsed text by specifying it in your `GET` request.
 
 For example, this piece of input text:
 
-```md
+```plaintext
 # Header 1
 Hello, world!
 ## Subheader 1
 # Header 2
 ```
 
-will be parsed into this html (simplified version to serve an example):
+will be parsed into this html format (simplified version to serve the purpose of an example):
 
 ```html
 <h1>Header 1</h1>
@@ -63,7 +65,7 @@ will be parsed into this html (simplified version to serve an example):
 <h1>Header 2</h1>
 ```
 
-or into this json:
+or into this json format:
 
 ```json
 {

@@ -4,8 +4,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public class TitleText implements Iterable<TextLine> {
 
+    // supports CR, LF, and CRLF
+    @JsonIgnore
+    private static final String SPLIT_PATTERN = "(\r|\n|\r\n)";
+
+    @JsonProperty
     public final List<TextLine> lines;
 
     public TitleText(List<TextLine> lines) {
@@ -14,7 +24,7 @@ public class TitleText implements Iterable<TextLine> {
 
     public static TitleText parse(String text) {
         var lines = new ArrayList<TextLine>();
-        for (var line : text.split("\\r?\\n")) {
+        for (var line : text.split(SPLIT_PATTERN)) {
             if (line.startsWith("#"))
                 lines.add(TextHeader.fromLine(line));
             else

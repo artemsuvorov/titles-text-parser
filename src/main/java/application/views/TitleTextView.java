@@ -8,8 +8,8 @@ public final class TitleTextView extends ResponseBodyBuilder {
 
     private final TitleText text;
 
-    public TitleTextView(String text) {
-        this.text = TitleText.parse(text);
+    public TitleTextView(TitleText text) {
+        this.text = text;
     }
 
     @Override
@@ -23,7 +23,7 @@ public final class TitleTextView extends ResponseBodyBuilder {
     private String line(TextLine line) {
         if (line instanceof TextHeader header)
             return header(header.level(), header.text(), underscore(header.text()));
-        else if (!line.isEmpty())
+        else if (!line.isBlank())
             return paragraph(line.text());
         else
             return "";

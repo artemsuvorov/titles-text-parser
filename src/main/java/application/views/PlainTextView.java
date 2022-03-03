@@ -1,21 +1,20 @@
 package application.views;
 
+import application.models.TitleText;
+
 public class PlainTextView extends ResponseBodyBuilder {
 
-    private final String text;
+    private final TitleText text;
 
     public PlainTextView(String text) {
-        this.text = text;
+        this.text = TitleText.parse(text);
     }
 
     @Override
     protected void viewResponseBody(StringBuilder htmlBuilder) {
-        var lines = text.split("(\r\n|\n)");
-        for (var line : lines) {
-            if (line.isBlank())
-                htmlBuilder.append(br());
-            else
-                htmlBuilder.append(paragraph(line));
+        for (var line : text) {
+            if (!line.isBlank())
+                htmlBuilder.append(paragraph(line.text()));
         }
     }
 

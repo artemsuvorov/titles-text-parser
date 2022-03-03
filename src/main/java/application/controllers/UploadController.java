@@ -29,19 +29,6 @@ public class UploadController {
         return "redirect:/";
     }
 
-    @GetMapping("/files/{filename:.+}")
-    public @ResponseBody String serveFile(@PathVariable String filename) {
-        try {
-            var file = storage.load(filename);
-            try (var stream = file.getInputStream()) {
-                var text = new String(stream.readAllBytes());
-                return new TitleTextView(text).buildResponseBody();
-            }
-        } catch (Exception ex) {
-            return "Failed to upload '" + filename + "' => Error message: " + ex.getMessage();
-        }
-    }
-
     private String storeFileWithStatusMessage(MultipartFile file) {
         var filename = file.getOriginalFilename();
         if (file.isEmpty())

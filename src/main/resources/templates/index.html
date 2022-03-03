@@ -21,7 +21,11 @@
         <h2>Uploaded files</h2>
         <th:block th:each="filename : ${filenames}">
             <p>
-                <a th:text="${filename}" th:href="@{'/files/' + ${filename}}"></a>
+                <a th:text="${filename}"></a>
+                <a> (formats: </a>
+                <a th:text="plain" th:href="@{'/files/' + ${filename}}"></a>,
+                <a th:text="parsed" th:href="@{'/files/parsed/' + ${filename}}"></a>,
+                <a th:text="json" th:href="@{'/files/parsed/json/' + ${filename}}"></a>)
             </p>
         </th:block>
     </div>

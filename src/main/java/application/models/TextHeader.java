@@ -1,11 +1,22 @@
 package application.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.function.Predicate;
 
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public final class TextHeader extends TextLine {
 
+    @JsonIgnore
     private final static char headerMarkdownSymbol = '#';
+
+    @JsonProperty
     private final int level;
+
+    @JsonProperty
+    private boolean isHeader = true; // serialize only
 
     private TextHeader(String text, int level) {
         super(text);

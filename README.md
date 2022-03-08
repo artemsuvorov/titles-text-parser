@@ -36,8 +36,8 @@ request from the table above.
 
 The uploaded file can be represented in a few formats:
 1. plain: returns text in html format where text is splitted into paragraphs of html tag `<p>`
-2. parsed: return text in html format where text is splitted into headers (`<h*>`) and paragraphs (`<p>`); on the top of the html page the navigation bar is provided.
-3. json: returns text in json format where text is splitted into objects which represent headers or other lines of the text.
+2. parsed: return text in html format where text is splitted into headings (`<h*>`) and paragraphs (`<p>`); on the top of the html page the navigation bar is provided.
+3. json: returns text in json format where text is presented as a navigable tree of nested text fragments by their heading levels.
 
 You can find examples of those formats in the Example section.
 
@@ -50,30 +50,36 @@ You can choose the format of the parsed text by specifying it in your `GET` requ
 For example, this piece of input text:
 
 ```plaintext
-# Header 1
+# Heading 1
 Hello, world!
-## Subheader 1
-# Header 2
+## Subheading 1
+# Heading 2
 ```
 
 will be parsed into this html format (simplified version to serve the purpose of an example):
 
 ```html
-<h1>Header 1</h1>
+<h1>Heading 1</h1>
     <p>Hello, world!</p>
-    <h2>Subheader 1</h2>
-<h1>Header 2</h1>
+    <h2>Subheading 1</h2>
+<h1>Heading 2</h1>
 ```
 
 or into this json format:
 
 ```json
-{
-  "lines": [
-    { "text": "Header 1", "isHeader": true, "level": 1 },
-    { "text": "Hello, world!", "isHeader": false },
-    { "text": "Subheader 1", "isHeader": true, "level": 2 },
-    { "text": "Header 2", "isHeader": true, "level": 1 },
-  ]
-}
+[
+  {
+    "heading": "Heading 1",
+    "paragraphs": [
+        { "paragraph": "Hello, world!" } 
+    ],
+    "subheadings": [ 
+        { "heading": "Subheading 1" } 
+    ]
+  },
+  {
+    "heading": "Heading 2"
+  }
+]
 ```

@@ -50,13 +50,15 @@ public final class TitleTextView extends ResponseBodyBuilder {
     }
 
     private String depth(TextHeader previous, TextHeader header) {
-        if (previous != null && previous.level() < header.level()) {
-            var depth = header.level() - previous.level();
+        if (previous == null)
+            return "";
+
+        var depth = header.level() - previous.level();
+        if (depth > 0)
             return beginOrderedList().repeat(depth);
-        } else if (previous != null && previous.level() > header.level()) {
-            var depth = previous.level() - header.level();
-            return endOrderedList().repeat(depth);
-        }
+        else if (depth < 0)
+            return endOrderedList().repeat(-depth);
+
         return "";
     }
 
